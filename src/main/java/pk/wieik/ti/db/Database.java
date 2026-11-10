@@ -14,7 +14,7 @@ public final class Database {
     private static final String DRIVER = "org.sqlite.JDBC";
     private static final Path DB_FILE = Path.of(
             System.getProperty("catalina.base", System.getProperty("user.home")),
-            "data", "biblioteka", "biblioteka.db"
+            "data", "platforma-blogowa", "platforma-blogowa.db"
     ).toAbsolutePath().normalize();
 
     private Database() {}
