@@ -12,10 +12,35 @@ import java.sql.Statement;
 /** Jedno miejsce odpowiedzialne za konfigurację SQLite i schemat bazy. */
 public final class Database {
     private static final String DRIVER = "org.sqlite.JDBC";
-    private static final Path DB_FILE = Path.of(
-            System.getProperty("catalina.base", System.getProperty("user.home")),
-            "data", "platforma-blogowa", "platforma-blogowa.db"
-    ).toAbsolutePath().normalize();
+    private static final Path DB_FILE = resolveDbFile();
+
+    private static Path resolveDbFile() {
+        String override = System.getProperty("blog.db.path");
+        if (override != null && !override.isBlank()) {
+            return Path.of(override).toAbsolutePath().normalize();
+        }
+        Path root = findProjectRoot();
+        if (root != null) {
+            return root.resolve("data").resolve("platforma-blogowa.db").toAbsolutePath().normalize();
+        }
+        return Path.of(
+                System.getProperty("catalina.base", System.getProperty("user.home")),
+                "data", "platforma-blogowa", "platforma-blogowa.db"
+        ).toAbsolutePath().normalize();
+    }
+
+    private static Path findProjectRoot() {
+        try {
+            Path dir = Path.of(Database.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            for (; dir != null; dir = dir.getParent()) {
+                if (Files.exists(dir.resolve("pom.xml"))) return dir;
+            }
+        } catch (Exception ex) {
+            System.err.println("Nie można ustalić katalogu projektu, użyto lokalizacji domyślnej");
+            ex.printStackTrace();
+        }
+        return null;
+    }
 
     private Database() {}
 
