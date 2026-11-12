@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import pk.wieik.ti.repository.UserRepository;
 
 import java.io.IOException;
@@ -32,9 +33,23 @@ public class RegisterServlet extends HttpServlet {
             form(request, response, login, "Hasła nie są takie same.");
             return;
         }
+
         try {
             // Nowe konto to uprawnienia 0 (zwykły ziutek)
             users.createUser(login, password, 0);
+
+            // Automatyczne logowanie
+            var user = users.authenticate(login, password);
+            if (user.isEmpty()) {
+                throw new ServletException("Nie udało się zalogować po rejestracji");
+            }
+
+            HttpSession session = request.getSession();
+            session.setAttribute("userId", user.get().id());
+            session.setAttribute("login", user.get().login());
+            session.setAttribute("uprawnienia", user.get().uprawnienia());
+            session.setMaxInactiveInterval(20 * 60);
+
             response.sendRedirect(request.getContextPath() + "/");
         } catch (IllegalArgumentException ex) {
             form(request, response, login, ex.getMessage());
