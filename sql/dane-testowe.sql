@@ -1,10 +1,11 @@
 PRAGMA foreign_keys = ON;
 
 -- Użytkownicy
-INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('admin',     'pbkdf2_sha256$600000$ALV57MBwwqCtJrcTfcUHVw==$scwzmoffVSRf6UWJNZ3LHLKgjFv2l+9AWplvu7sTgcc=', 2);
-INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('moderator', 'pbkdf2_sha256$600000$kLNc9Zt1g1McjwGyzLFeyQ==$Fg6FPvkSmojg7wv3IVJldRX4Dz+5XTHe7wMs5NFOhHw=', 1);
-INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('ania',      'pbkdf2_sha256$600000$bp1EjM7xLYKSEsIyhvnyfg==$JyFVy+vAiBIqeLj0dk6qwbYHkO8jaEGcUEeYr0/4yog=', 0);
-INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('marek',     'pbkdf2_sha256$600000$SuOVlE2yk2tr6Mu+bOLOgQ==$PJg/p9T7a8/yLJoggK+h9NfFHaKthmQ++VJ0F/xdLjU=', 0);
+INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('admin',     'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 2);
+INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('moderator', 'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 1);
+INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('dominik',      'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 0);
+INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('mikolaj',     'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 0);
+INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('piotrek',     'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 0);
 
 -- Tagi
 INSERT OR IGNORE INTO tagi (nazwa) VALUES ('java');
