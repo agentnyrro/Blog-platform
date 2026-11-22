@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"", "/"})
+@WebServlet("")
 public class HomeServlet extends HttpServlet {
 
     @Override
@@ -24,9 +24,11 @@ public class HomeServlet extends HttpServlet {
             content = """
                 <h1>Platforma blogowa</h1>
 
-                <p>Zalogowano jako: <strong>%s</strong></p>
+                <p>Zalogowano jako: <strong>%1$s</strong></p>
 
-                <form method="post" action="%s/wyloguj">
+                <p><a href="%2$s/blogi">Przeglądaj blogi</a></p>
+
+                <form method="post" action="%2$s/wyloguj">
                     <button type="submit">Wyloguj</button>
                 </form>
                 """.formatted(login, path);
@@ -40,9 +42,11 @@ public class HomeServlet extends HttpServlet {
                 <nav>
                     <a href="%s/logowanie">Logowanie</a>
                     |
-                    <a href="%s/rejestracja">Rejestracja</a>
+                    <a href="%1$s/rejestracja">Rejestracja</a>
+                    |
+                    <a href="%1$s/blogi">Przeglądaj blogi</a>
                 </nav>
-                """.formatted(path, path);
+                """.formatted(path);
         }
 
         Html.send(response, "Strona główna", content);

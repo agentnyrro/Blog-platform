@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("login", user.get().login());
             session.setAttribute("uprawnienia", user.get().uprawnienia());
             session.setMaxInactiveInterval(20 * 60);
-            response.sendRedirect(request.getContextPath() + "/");
+            response.sendRedirect(request.getContextPath() + "/blogi");
         } catch (SQLException ex) {
             throw new ServletException("Błąd bazy podczas logowania", ex);
         }
@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
         login = Html.escape(login);
 
         Html.send(response, "Logowanie", """
-            <h1>Platforma blogowa — logowanie</h1>
+            <h1>Logowanie</h1>
             %2$s
     
             <form method="post" action="%1$s/logowanie">

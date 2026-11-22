@@ -35,6 +35,12 @@ public class RegisterServlet extends HttpServlet {
         }
 
         try {
+            // Usunięcie poprzedniej sesji
+            HttpSession previous = request.getSession(false);
+            if (previous != null) {
+                previous.invalidate();
+            }
+
             // Nowe konto to uprawnienia 0 (zwykły ziutek)
             users.createUser(login, password, 0);
 
@@ -44,13 +50,13 @@ public class RegisterServlet extends HttpServlet {
                 throw new ServletException("Nie udało się zalogować po rejestracji");
             }
 
-            HttpSession session = request.getSession();
+            HttpSession session = request.getSession(true);
             session.setAttribute("userId", user.get().id());
             session.setAttribute("login", user.get().login());
             session.setAttribute("uprawnienia", user.get().uprawnienia());
             session.setMaxInactiveInterval(20 * 60);
 
-            response.sendRedirect(request.getContextPath() + "/");
+            response.sendRedirect(request.getContextPath() + "/blogi");
         } catch (IllegalArgumentException ex) {
             form(request, response, login, ex.getMessage());
         } catch (SQLException ex) {
@@ -67,7 +73,7 @@ public class RegisterServlet extends HttpServlet {
         String path = Html.escape(request.getContextPath());
         String message = error == null ? "" : "<p class='error'>" + Html.escape(error) + "</p>";
         Html.send(response, "Rejestracja", """
-            <h1>Platforma blogowa — rejestracja</h1>
+            <h1>Rejestracja</h1>
             %s
             <form method="post" action="%s/rejestracja">
                 <label>Login: <input name="login" value="%s" required maxlength="64" autocomplete="username"></label><br>
