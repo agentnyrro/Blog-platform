@@ -110,18 +110,18 @@ public final class Database {
                      tresc TEXT NOT NULL,
                      data_utworzenia TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
                      status INTEGER NOT NULL DEFAULT 1
-                         CHECK (status IN (0, 1)),                 
+                         CHECK (status IN (0, 1)),
                      FOREIGN KEY (blog_id)
                          REFERENCES blogi(id)
-                         ON DELETE CASCADE,                 
+                         ON DELETE CASCADE,
                      FOREIGN KEY (autor_id)
                          REFERENCES uzytkownicy(id)
-                         ON DELETE CASCADE,                 
+                         ON DELETE CASCADE,
                      FOREIGN KEY (komentarz_nadrzedny_id)
                          REFERENCES komentarze(id)
                          ON DELETE CASCADE
              );
-                """);
+             """);
 
             statement.execute("""
                 CREATE TABLE IF NOT EXISTS tagi (

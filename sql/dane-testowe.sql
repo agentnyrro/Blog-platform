@@ -26,22 +26,22 @@ SELECT (SELECT id FROM uzytkownicy WHERE login = 'admin'), 'Szkic o SQLite',
     WHERE NOT EXISTS (SELECT 1 FROM blogi WHERE tytul = 'Szkic o SQLite');
 
 INSERT INTO blogi (autor_id, tytul, tresc, status)
-SELECT (SELECT id FROM uzytkownicy WHERE login = 'ania'), 'Tydzień w Lizbonie',
+SELECT (SELECT id FROM uzytkownicy WHERE login = 'dominik'), 'Tydzień w Lizbonie',
        'Tramwaj 28, pastéis de nata i zachody słońca nad Tagiem. Polecam każdemu.', 1
     WHERE NOT EXISTS (SELECT 1 FROM blogi WHERE tytul = 'Tydzień w Lizbonie');
 
 INSERT INTO blogi (autor_id, tytul, tresc, status)
-SELECT (SELECT id FROM uzytkownicy WHERE login = 'ania'), 'Pomysły na wpisy',
+SELECT (SELECT id FROM uzytkownicy WHERE login = 'dominik'), 'Pomysły na wpisy',
        'Lista rzeczy, o których chcę napisać. Na razie tylko notatki.', 0
     WHERE NOT EXISTS (SELECT 1 FROM blogi WHERE tytul = 'Pomysły na wpisy');
 
 INSERT INTO blogi (autor_id, tytul, tresc, status)
-SELECT (SELECT id FROM uzytkownicy WHERE login = 'marek'), 'Domowy chleb na zakwasie',
+SELECT (SELECT id FROM uzytkownicy WHERE login = 'piotrek'), 'Domowy chleb na zakwasie',
        'Mąka, woda, sól i trochę cierpliwości. Zakwas musi odpocząć co najmniej dobę.', 1
     WHERE NOT EXISTS (SELECT 1 FROM blogi WHERE tytul = 'Domowy chleb na zakwasie');
 
 INSERT INTO blogi (autor_id, tytul, tresc, status)
-SELECT (SELECT id FROM uzytkownicy WHERE login = 'marek'), 'Servlety bez frameworka',
+SELECT (SELECT id FROM uzytkownicy WHERE login = 'piotrek'), 'Servlety bez frameworka',
        'Czy do prostej aplikacji naprawdę potrzebujemy Springa? Krótkie podsumowanie.', 1
     WHERE NOT EXISTS (SELECT 1 FROM blogi WHERE tytul = 'Servlety bez frameworka');
 
@@ -69,17 +69,17 @@ WHERE b.tytul = 'Servlety bez frameworka' AND t.nazwa IN ('java', 'servlety');
 -- Komentarze
 INSERT INTO komentarze (blog_id, autor_id, tresc)
 SELECT (SELECT id FROM blogi WHERE tytul = 'Pierwszy wpis'),
-       (SELECT id FROM uzytkownicy WHERE login = 'ania'), 'Pierwszy komentarz!'
+       (SELECT id FROM uzytkownicy WHERE login = 'dominik'), 'Pierwszy komentarz!'
     WHERE NOT EXISTS (SELECT 1 FROM komentarze WHERE tresc = 'Pierwszy komentarz!');
 
 INSERT INTO komentarze (blog_id, autor_id, tresc)
 SELECT (SELECT id FROM blogi WHERE tytul = 'Tydzień w Lizbonie'),
-       (SELECT id FROM uzytkownicy WHERE login = 'marek'), 'Świetne zdjęcia, też chcę tam pojechać.'
+       (SELECT id FROM uzytkownicy WHERE login = 'piotrek'), 'Świetne zdjęcia, też chcę tam pojechać.'
     WHERE NOT EXISTS (SELECT 1 FROM komentarze WHERE tresc = 'Świetne zdjęcia, też chcę tam pojechać.');
 
 INSERT INTO komentarze (blog_id, autor_id, tresc)
 SELECT (SELECT id FROM blogi WHERE tytul = 'Domowy chleb na zakwasie'),
-       (SELECT id FROM uzytkownicy WHERE login = 'ania'), 'KUP TERAZ TANIE ZEGARKI -> spam.example'
+       (SELECT id FROM uzytkownicy WHERE login = 'dominik'), 'KUP TERAZ TANIE ZEGARKI -> spam.example'
     WHERE NOT EXISTS (SELECT 1 FROM komentarze WHERE tresc = 'KUP TERAZ TANIE ZEGARKI -> spam.example');
 
 -- Komentarze
@@ -90,21 +90,21 @@ WHERE k.tresc = 'Pierwszy komentarz!'
   AND NOT EXISTS (SELECT 1 FROM komentarze WHERE tresc = 'Odpowiedź na pierwszy komentarz.');
 
 INSERT INTO komentarze (blog_id, autor_id, komentarz_nadrzedny_id, tresc)
-SELECT k.blog_id, (SELECT id FROM uzytkownicy WHERE login = 'ania'), k.id, 'Polecam, najlepiej wiosną!'
+SELECT k.blog_id, (SELECT id FROM uzytkownicy WHERE login = 'dominik'), k.id, 'Polecam, najlepiej wiosną!'
 FROM komentarze k
 WHERE k.tresc = 'Świetne zdjęcia, też chcę tam pojechać.'
   AND NOT EXISTS (SELECT 1 FROM komentarze WHERE tresc = 'Polecam, najlepiej wiosną!');
 
 -- Zgłoszenia komentarzy
 INSERT INTO zgloszenia (zglaszajacy_id, komentarz_id, powod, opis)
-SELECT (SELECT id FROM uzytkownicy WHERE login = 'marek'), k.id, 'Spam', 'Komentarz reklamowy, prośba o usunięcie.'
+SELECT (SELECT id FROM uzytkownicy WHERE login = 'piotrek'), k.id, 'Spam', 'Komentarz reklamowy, prośba o usunięcie.'
 FROM komentarze k
 WHERE k.tresc = 'KUP TERAZ TANIE ZEGARKI -> spam.example'
   AND NOT EXISTS (SELECT 1 FROM zgloszenia WHERE opis = 'Komentarz reklamowy, prośba o usunięcie.');
 
 -- Zgłoszenia blogów
 INSERT INTO zgloszenia (zglaszajacy_id, blog_id, powod, opis)
-SELECT (SELECT id FROM uzytkownicy WHERE login = 'ania'), b.id, 'Nieprawdziwe informacje', 'Przykładowe zgłoszenie testowe bloga.'
+SELECT (SELECT id FROM uzytkownicy WHERE login = 'dominik'), b.id, 'Nieprawdziwe informacje', 'Przykładowe zgłoszenie testowe bloga.'
 FROM blogi b
 WHERE b.tytul = 'Servlety bez frameworka'
   AND NOT EXISTS (SELECT 1 FROM zgloszenia WHERE opis = 'Przykładowe zgłoszenie testowe bloga.');
