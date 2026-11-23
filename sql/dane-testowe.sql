@@ -2,10 +2,9 @@ PRAGMA foreign_keys = ON;
 
 -- Użytkownicy
 INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('admin',     'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 2);
-INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('moderator', 'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 1);
-INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('dominik',      'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 0);
-INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('mikolaj',     'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 0);
-INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('piotrek',     'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 0);
+INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('dominik',      'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 1);
+INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('mikolaj',     'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 1);
+INSERT OR IGNORE INTO uzytkownicy (login, haslo, uprawnienia) VALUES ('piotrek',     'pbkdf2_sha256$600000$aLDH46/Vnjt5zq92deAhaA==$fpT7wkbEHwKsWAPe68xOt4ghsN2pFIkGIl2Sw2xL6Vk=', 1);
 
 -- Tagi
 INSERT OR IGNORE INTO tagi (nazwa) VALUES ('java');
